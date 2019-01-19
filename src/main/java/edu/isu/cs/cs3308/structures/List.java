@@ -68,15 +68,15 @@ public interface List<E> {
      */
     E remove(int index);
 
-    /**
-     * Retrieves the value at the specified index. Will return null if the index
-     * provided is less than 0 or greater than or equal to the current size of
-     * the list.
-     *
-     * @param index Index of the value to be retrieved.
-     * @return Element at the given index, or null if the index is less than 0
-     * or greater than or equal to the list size.
-     */
+        /**
+         * Retrieves the value at the specified index. Will return null if the index
+         * provided is less than 0 or greater than or equal to the current size of
+         * the list.
+         *
+         * @param index Index of the value to be retrieved.
+         * @return Element at the given index, or null if the index is less than 0
+         * or greater than or equal to the list size.
+         */
     E get(int index);
 
     /**

@@ -1,6 +1,7 @@
 package edu.isu.cs.cs3308;
 
 import edu.isu.cs.cs3308.structures.List;
+import edu.isu.cs.cs3308.structures.impl.SinglyLinkedList;
 
 /**
  * A class used to represent a scoreboard for a game which is constrained to
@@ -18,7 +19,7 @@ public class Scoreboard {
      *
      * @param capacity Maximum number of entries supported by this scoreboard.
      */
-    public Scoreboard(int capacity) {
+    public Scoreboard(int    capacity) {
         board = new SinglyLinkedList<>();
         this.capacity = capacity;
     }
