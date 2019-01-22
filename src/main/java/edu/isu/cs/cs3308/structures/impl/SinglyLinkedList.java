@@ -7,25 +7,20 @@ import java.lang.annotation.ElementType;
 
 public class SinglyLinkedList<E> implements List<E> {
 
-    private Node<E> head;
-    private Node<E> tail;
+    private Node<E> head =null;
+    private Node<E> tail =null;
 
     private int size = 0;
 
+    public Node getFirst() { return head; }
+    public Node getLast () { return tail; }
 
     @Override
     public E first() {
         if(isEmpty()) {
             return null;
         }
-        else if(head == null){
-            head = tail;
-            return head.getElement();
-        }
-        else if(head != null){
-            return head.getElement();
-        }
-       return null;
+      return head.getElement();
     }
 
     @Override
@@ -33,11 +28,7 @@ public class SinglyLinkedList<E> implements List<E> {
         if(isEmpty()) {
             return null;
         }
-//        else if(tail !=null){
-//            return tail.getElement();
-//
-//        }
-//        return null;
+
         return tail.getElement();
     }
 
@@ -45,12 +36,16 @@ public class SinglyLinkedList<E> implements List<E> {
     public void addLast(E element) {
         if(element == null){
             return;
-        }
-        Node<E> newNode = new Node<>(element);
-        newNode.setNext(null);
-        tail = newNode;
-        size++;
+        }else{
+            Node<E> newNode = new Node<E>(element, null);
+            if(isEmpty())
+                head = newNode;
+            else
+                tail.setNext((newNode));
+            tail = newNode;
+            size++;
 
+        }
     }
 
     @Override
@@ -58,11 +53,12 @@ public class SinglyLinkedList<E> implements List<E> {
         if (element == null){
             return;
         }
-
-        Node<E> newNode = new Node<>(element);
+        Node<E> newNode = new Node<E>(element);
         newNode.setNext(head);
-        head= newNode;
-
+        head = newNode;
+        if(size == 0){
+            tail = head;
+        }
         size++;
     }
 
@@ -71,17 +67,12 @@ public class SinglyLinkedList<E> implements List<E> {
         if(isEmpty()){
             return null;
         }
-        else if(head == null){
-            head = tail;
-            size--;
-            return head.getElement();
-        }
-
-            Node<E> temp = head;
-            head = head.getNext();
-            temp.setNext(null);
-            size--;
-            return head.getElement();
+        Node<E> temp = head;
+        head = head.getNext();
+        E rValue = temp.getElement();
+        temp.setNext(null);
+        size--;
+        return rValue;
 
 
 
@@ -92,44 +83,43 @@ public class SinglyLinkedList<E> implements List<E> {
         if(isEmpty()){
             return null;
         }
-        else if(head==null){
-            head = tail;
+        else{
+            Node<E> temp = tail;
+            E rValue = temp.getElement();
             size--;
-            return tail.getElement();
+            return rValue;
         }
-        else if(head !=null){
-            Node<E> temp = head;
-            Node<E> temp2 = head.next;
 
-            while(temp2.getNext()!=null){
-                temp = temp.getNext();
-            }
-            temp.next = null;
-            tail = temp2;
-            size--;
-
-            return tail.getElement();
-        }
-        return null;
     }
 
     @Override
     public void insert(E element, int index) {
-        if(element !=null && index>0 && head !=null){
-
-            Node<E> prev = head;
-            for(int i =0; i< index-1; i++){
-                prev = prev.getNext();
+        if(element == null || index < 0 ){
+            return;
+        }
+        else{
+            if(index == 0){
+                addFirst(element);
+                return;
             }
-            Node<E> nexttemp = prev.getNext();
-            Node<E> newtemp = new Node<E>(element);
+            else if(index >= size()){
+                addLast(element);
+                return;
+            }
+            Node<E> prevNode = head;
+            for(int i =0; i< index-1; i++)
+                prevNode = prevNode.getNext();
 
-            newtemp.setNext(nexttemp);
-            prev.setNext(newtemp);
+            Node<E> nextNode = prevNode.getNext();
+            Node<E> newNode = new Node<E>(element);
+            newNode.setNext(nextNode);
+            prevNode.setNext(newNode);
             size++;
+            if(newNode.getNext() == null){
+                tail = newNode;
+            }
 
-        } else if(index >= size()){
-            addLast(element);
+
         }
 
 
@@ -137,23 +127,37 @@ public class SinglyLinkedList<E> implements List<E> {
 
     @Override
     public E remove(int index) {
-        return null;
+        if(index < 0 || index >= size()){
+            return null;
+        }
+        Node<E> prevNode = head;
+        for(int i =0; i< index-1; i++)
+            prevNode = prevNode.getNext();
+        Node<E> removeNode = prevNode.getNext();
+        Node<E> removeNextNode = removeNode.getNext();
+        removeNode.setNext(null);
+
+        prevNode.setNext(removeNextNode);
+        size--;
+
+        return removeNode.getElement();
     }
 
     @Override
     public E get(int index) {
-        if(index< 0 || index>=size()){
+        if (index >= size() || index < 0 ) {
             return null;
         }
-        else if(head != null){
+         else {
             Node<E> temp = head;
-            for(int i=0; i< index; i++){
-                temp = temp.getNext();
+            for (int i = 0; i < index; i++) {
+               temp = temp.getNext();
             }
             return temp.getElement();
         }
-        return null;
+
     }
+
 
     @Override
     public int size() {
@@ -172,7 +176,7 @@ public class SinglyLinkedList<E> implements List<E> {
 
     @Override
     public void printList() {
-        SinglyLinkedList<E> printNode;
+        //SinglyLinkedList<E> printNode;
         for(int i = 0; i <size(); i++){
 
             System.out.println(get(i));
@@ -182,7 +186,9 @@ public class SinglyLinkedList<E> implements List<E> {
 
 
     public SinglyLinkedList(){
-
+        head = null;
+        tail = null;
+        size = 0;
     };
 
 

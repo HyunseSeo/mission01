@@ -14,7 +14,9 @@ public class Driver {
         Scoreboard board = new Scoreboard(10);
 
         for (int i = 0; i < 10; i++) {
+            System.out.println(i);
             board.add(GameEntry.createRandomEntry());
+
         }
 
         board.printScores();

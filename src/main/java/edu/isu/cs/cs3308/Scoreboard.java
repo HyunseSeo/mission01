@@ -1,7 +1,10 @@
 package edu.isu.cs.cs3308;
 
 import edu.isu.cs.cs3308.structures.List;
+import edu.isu.cs.cs3308.structures.impl.Node;
 import edu.isu.cs.cs3308.structures.impl.SinglyLinkedList;
+
+import java.util.*;
 
 /**
  * A class used to represent a scoreboard for a game which is constrained to
@@ -14,6 +17,11 @@ public class Scoreboard {
     private int capacity; // maximum capacity constraint
     private List<GameEntry> board; // Underlying list data structure
 
+
+    private Node<GameEntry> head ;
+    private Node<GameEntry> tail ;
+
+
     /**
      * Constructs a new scoreboard with the provided maximum capacity.
      *
@@ -22,6 +30,7 @@ public class Scoreboard {
     public Scoreboard(int    capacity) {
         board = new SinglyLinkedList<>();
         this.capacity = capacity;
+
     }
 
     /**
@@ -29,8 +38,27 @@ public class Scoreboard {
      * we should expect nothing to happen.
      *
      * @param entry Entry to be added.
+
      */
+
     public void add(GameEntry entry) {
+        if(entry == null){
+            return;
+        }
+
+        Node<GameEntry> addNode = new Node<GameEntry>(entry);
+
+        if(board.size()==0){
+            board.addFirst(addNode.getElement());
+        }
+
+        if(head.getNext() ==null){
+            tail = head;
+        }
+
+
+        this.capacity++;
+
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -60,3 +88,4 @@ public class Scoreboard {
         return board.size();
     }
 }
+
