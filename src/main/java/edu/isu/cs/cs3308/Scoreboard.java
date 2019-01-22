@@ -41,7 +41,7 @@ public class Scoreboard {
 
      */
 
-    public void add(GameEntry entry) {
+    public void add(GameEntry entry)  {
         if(entry == null){
             return;
         }

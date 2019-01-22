@@ -7,13 +7,9 @@ import java.lang.annotation.ElementType;
 
 public class SinglyLinkedList<E> implements List<E> {
 
-    private Node<E> head =null;
-    private Node<E> tail =null;
-
+    private Node<E> head;
+    private Node<E> tail;
     private int size = 0;
-
-    public Node getFirst() { return head; }
-    public Node getLast () { return tail; }
 
     @Override
     public E first() {
@@ -73,9 +69,6 @@ public class SinglyLinkedList<E> implements List<E> {
         temp.setNext(null);
         size--;
         return rValue;
-
-
-
     }
 
     @Override
@@ -186,9 +179,6 @@ public class SinglyLinkedList<E> implements List<E> {
 
 
     public SinglyLinkedList(){
-        head = null;
-        tail = null;
-        size = 0;
     };
 
 
